@@ -1,0 +1,42 @@
+.publish{
+	margin-left: 530px;
+}
+
+.items header {
+	margin-bottom: 20px;
+}
+
+.items .item{
+	padding-left: 10px;
+	border-left:  3px solid #123456;
+	margin-bottom: 30px;
+	background-color: #eef;
+}
+
+.items .item .info{
+	color: #aaa;
+	font-style: italic;
+}
+
+.error,
+.success{
+	text-align: center;
+}
+
+.error{
+	border: 1px solid red;
+	background-color: #f9b5af;
+	color: red;
+}
+
+.error ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.success{
+	border: 1px solid green;
+	background-color: #b9f5af;
+	color: green;
+}
