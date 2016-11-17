@@ -3,11 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Location extends Model
 {
 	protected $geofields = array('location');
-
 
 	public function setLocationAttribute($value) {
 		$this->attributes['location'] = DB::raw("POINT($value)");
@@ -35,4 +35,22 @@ class Location extends Model
 	{
 		return $query->orderBy('st_distance(location,POINT('.$location.'))', 'asc');
 	}
+
+
+    public function parent(){
+    	return $this->belongsTo('App\Location');
+    }
+    public function children(){
+    	return $this->HasMany('App\Location','parent_id');
+    }
+    public function items(){
+        return $this->hasMany('App\Item');
+    }
+    public function users(){
+        return $this->hasMany('App\User');
+    }
+    public function filters(){
+        return $this->hasMany('App\Filter');
+    }
+
 }

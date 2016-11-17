@@ -10,9 +10,12 @@ class Category extends Model
     	return $this->belongsTo('App\Category');
     }
     public function children(){
-    	return $this->HasMany('App\Category');
+    	return $this->HasMany('App\Category','parent_id');
     }
     public function items(){
         return $this->hasMany('App\Item');
+    }
+    public function filters(){
+        return $this->hasMany('App\Filter');
     }
 }

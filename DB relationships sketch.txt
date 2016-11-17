@@ -1,0 +1,38 @@
+user has location
+user has referrer
+user has many roles
+
+item has status
+item has category
+item has location
+item has user
+
+category has parent
+location has parent
+
+comment has user
+comment has item
+comment has status
+comment has reply
+
+image has item
+
+like has user
+like has item
+like has type
+
+view has user
+view has item
+
+filter has user
+filter has category
+filter has location
+filter has notification
+
+follower has user1,2
+follower has notification
+
+favorite has user
+favorite has item
+favorite has notification
+

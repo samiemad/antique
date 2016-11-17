@@ -12,11 +12,11 @@ class LiketypesSeeder extends Seeder
      */
     public function run()
     {
-        $like = new Liketypes();
+        $like = new Liketype();
         $like->name = 'Like';
         $like->save();
 
-        $dislike = new Liketypes();
+        $dislike = new Liketype();
         $dislike->name = 'Dislike';
         $dislike->save();
     }

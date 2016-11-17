@@ -34,7 +34,8 @@ class User extends Authenticatable
         return $this->belongsTo('App\User');
     }
     public function referrees(){
-        return $this->hasMany('App\User');
+        // TODO check if this relation is working!
+        return $this->hasMany('App\User','referrer_id');
     }
     public function items(){
         return $this->hasMany('App\Item');
@@ -42,7 +43,26 @@ class User extends Authenticatable
     public function comments(){
         return $this->hasMany('App\Comment');
     }
-
+    public function likes(){
+        return $this->hasMany('App\Like');
+    }
+    public function views(){
+        return $this->hasMany('App\View');
+    }
+    public function filters(){
+        return $this->hasMany('App\Filter');
+    }
+    public function favorites(){
+        return $this->hasMany('App\Favorite');
+    }
+    public function followers(){
+        // TODO check if this relation is working!
+        return $this->hasMany('App\Follower', 'followed_id');
+    }
+    public function following(){
+        // TODO check if this relation is working!
+        return $this->hasMany('App\Follower', 'follower_id');
+    }
     public function location(){
         return $this->belongsTo('App\Location');
     }

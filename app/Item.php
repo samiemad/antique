@@ -15,9 +15,9 @@ class Item extends Model
     public function location(){
     	return $this->belongsTo('App\Location');
     }
-    // public function status(){
-    // 	return $this->belongsTo('App\Status');
-    // }
+    public function status(){
+    	return $this->belongsTo('App\Status');
+    }
 
     public function comments(){
     	return $this->hasMany('App\Comment');
@@ -25,5 +25,17 @@ class Item extends Model
 
     public function images(){
         return $this->hasMany('App\Image');
+    }
+
+    public function likes(){
+        return $this->hasMany('App\Like');
+    }
+
+    public function views(){
+        return $this->hasMany('App\View');
+    }
+
+    public function favorites(){
+        return $this->hasMany('App\Favorite');
     }
 }

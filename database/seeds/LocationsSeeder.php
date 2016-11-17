@@ -15,23 +15,22 @@ class LocationsSeeder extends Seeder
         $sy = new Location();
         $sy->name = 'Syria';
         $sy->main = true;
-        $sy.save();
+        $sy->save();
 
         $damas = new Location();
         $damas->name = 'Damascus';
         $damas->main = true;
-        $sy->children()-save($damas);
+        $sy->children()->save($damas);
 
         $latakia = new Location();
         $latakia->name = 'Latakia';
         $latakia->main = true;
-        $latakia->children()-save($latakia);
+        $sy->children()->save($latakia);
 
         $tartus = new Location();
         $tartus->name = 'Tartus';
         $tartus->main = true;
-        $tartus->children()-save($tartus);
-
+        $sy->children()->save($tartus);
 
     }
 }

@@ -19,7 +19,7 @@ class Comment extends Model
     	return $this->hasMany('App\Comment', 'reply_id');
     }
 
-    // public function status(){
-    // 	return $this->belongsTo('App\Status');
-    // }
+    public function status(){
+    	return $this->belongsTo('App\Status');
+    }
 }
