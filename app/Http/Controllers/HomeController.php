@@ -8,6 +8,7 @@ use App\Comment;
 use App\Image;
 use App\Location;
 use App\Category;
+use App\Status;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -47,16 +48,22 @@ class HomeController extends Controller
             'description' => 'required|max:1000',
             'price' => 'required',
             'category' => 'required|exists:categories,id',
-            'phone' => 'phone'
+            'location' => 'required|exists:locations,id',
+            'phone' => 'min:10'
         ]);
         
         $item = new Item();
         $item->name = $request->name;
         $item->description = $request->description;
         $item->price = $request->price;
+        if($request->phone!=null)
+            $item->phone = $request->phone;
+        else
+            $item->phone = Auth::user()->phone;
+
+        $item->status()->associate(Status::where('name','active')->first());
         $item->category_id = $request->category;
-        $item->status_id = 1;
-        $item->location_id = 1;
+        $item->location_id = $request->location;
         $item->ends_at = \Carbon\Carbon::now()->addDays(5);
 
         if(Auth::user()->items()->save($item)){
