@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Admin extends Controller
+class AdminController extends Controller
 {
+    public function getUsers(){
+        return view('users', [
+            'users' => \App\User::all(),
+        ]);
+    }
     
 }

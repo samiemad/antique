@@ -26,7 +26,7 @@
         </script>
     </head>
     <body>
-        <div id="app">
+        <div id="container app">
 
             @include('includes.header')
 

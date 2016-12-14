@@ -28,3 +28,8 @@ Route::get('/item/{item_id}', 'HomeController@getItem');
 Route::post('/item/{item_id}/upload', 'HomeController@postAddImage');
 
 Route::post('/item/{item_id}/comment', 'HomeController@postAddComment');
+
+
+// Route::get('/admin/users', 'AdminController@getUsers');
+
+Route::resource('/admin/users','UserController');

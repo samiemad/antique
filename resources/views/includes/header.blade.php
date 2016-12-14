@@ -40,16 +40,16 @@
                             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
                             Logout
-                        </a>
+                            </a>
 
                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
                         </form>
-                    </li>
-                </ul>
-            </li>
-            @endif
-        </ul>
+                        </li>
+                    </ul>
+                </li>
+                @endif
+            </ul>
+        </div>
     </div>
-</div>
 </nav>
