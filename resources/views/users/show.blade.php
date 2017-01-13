@@ -39,8 +39,8 @@
 					<td>{{ $user->credit }}</td>
 					<td>{{ $user->gender }}</td>
 					<td>{{ $user->birth }}</td>
-					<td>{{ $user->referrer_id }}</td>
-					<td>{{ $user->location->name }}</td>
+					<td>{{ $user->referrer->name??'N/A' }}</td>
+					<td>{{ $user->location->name??'N/A' }}</td>
 
 					<!-- we will also add show, edit, and delete buttons -->
 					<td>
@@ -49,27 +49,35 @@
 						<!-- we will add this later since its a little more complicated than the other two buttons -->
 
 						<!-- edit this user (uses the edit method found at GET /users/{id}/edit -->
-						<a class="btn btn-small btn-info" href="{{ URL::to('admin/users/' . $user->id . '/edit') }}">Edit</a>
+						<a class="btn btn-small btn-info" href="{{ route('users.edit', ['id' => $user->id]) }}">Edit</a>
 
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		<div class="col">
-		<p>name: {{$user->name}}</p>
-		<p>email: {{$user->email}}</p>
-		<p>username: {{$user->username}}</p>
-		<p>phone: {{$user->phone}}</p>
-		<p>facebook: {{$user->facebook}}</p>
-		<p>google: {{$user->google}}</p>
-		<p>points: {{$user->points}}</p>
-		<p>cerdit: {{$user->cerdit}}</p>
-		<p>gender: {{$user->gender}}</p>
-		<p>date of birth: {{$user->birth}}</p>
-		<p>location: {{$user->location}}</p>
-		<p>referrer: {{$user->referrer}}</p>
-		<p>created_at: {{$user->created_at}}</p>
-		<p>modified_at: {{$user->modified_at}}</p>
+			<p>name: {{$user->name}}</p>
+			<p>email: {{$user->email}}</p>
+			<p>username: {{$user->username}}</p>
+			<p>phone: {{$user->phone}}</p>
+			<p>facebook: {{$user->facebook}}</p>
+			<p>google: {{$user->google}}</p>
+			<p>points: {{$user->points}}</p>
+			<p>cerdit: {{$user->credit}}</p>
+			<p>gender: {{$user->gender}}</p>
+			<p>date of birth: {{$user->birth}}</p>
+			<p>location: {{$user->location->name??'N/A'}}</p>
+			<p>referrer: {{$user->referrer->name??'N/A'}}</p>
+			<p>created_at: {{$user->created_at}}</p>
+			<p>modified_at: {{$user->modified_at}}</p>
+			<p>roles:
+				<ul>
+					@foreach($user->roles as $role)
+					<li>{{$role->name}}</li>
+					@endforeach
+				</ul>
+			</p>
+			
 		</div>
 	</div>
 </div>

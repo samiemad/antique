@@ -29,19 +29,19 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($users as $key => $value)
+				@foreach($users as $user)
 				<tr>
-					<td>{{ $value->id }}</td>
-					<td>{{ $value->name }}</td>
-					<td>{{ $value->email }}</td>
-					<td>{{ $value->username }}</td>
-					<td>{{ $value->phone }}</td>
-					<td>{{ $value->points }}</td>
-					<td>{{ $value->credit }}</td>
-					<td>{{ $value->gender }}</td>
-					<td>{{ $value->birth }}</td>
-					<td>{{ $value->referrer_id }}</td>
-					<td>{{ $value->location->name }}</td>
+					<td>{{ $user->id }}</td>
+					<td>{{ $user->name }}</td>
+					<td>{{ $user->email }}</td>
+					<td>{{ $user->username }}</td>
+					<td>{{ $user->phone }}</td>
+					<td>{{ $user->points }}</td>
+					<td>{{ $user->credit }}</td>
+					<td>{{ $user->gender }}</td>
+					<td>{{ $user->birth }}</td>
+					<td>{{ $user->referrer->name??'N/A' }}</td>
+					<td>{{ $user->location->name??'N/A' }}</td>
 
 					<!-- we will also add show, edit, and delete buttons -->
 					<td>
@@ -50,10 +50,10 @@
 						<!-- we will add this later since its a little more complicated than the other two buttons -->
 
 						<!-- show the user (uses the show method found at GET /users/{id} -->
-						<a class="btn btn-small btn-success" href="{{ URL::to('admin/users/' . $value->id) }}">Show</a>
+						<a class="btn btn-small btn-success" href="{{ route('users.show', ['id'=>$user->id]) }}">Show</a>
 
 						<!-- edit this user (uses the edit method found at GET /users/{id}/edit -->
-						<a class="btn btn-small btn-info" href="{{ URL::to('admin/users/' . $value->id . '/edit') }}">Edit</a>
+						<a class="btn btn-small btn-info" href="{{ route('users.edit', ['id'=>$user->id]) }}">Edit</a>
 
 					</td>
 				</tr>

@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -65,5 +66,21 @@ class User extends Authenticatable
     }
     public function location(){
         return $this->belongsTo('App\Location');
+    }
+
+    public function hasRoles($roles){
+        foreach($roles as $role){
+            if($this->hasRole($role))
+                return true;
+        }
+    }
+
+    public function hasRole($role){
+        return $this->roles()->find($role->id)!=null;
+    }
+
+    public function setBirthAttribute($value)
+    {
+        $this->attributes['birth'] = !empty($value) ? Carbon::parse($value) : null;
     }
 }
