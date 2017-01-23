@@ -33,3 +33,5 @@ Route::post('/item/{item_id}/comment', 'HomeController@postAddComment');
 // Route::get('/admin/users', 'AdminController@getUsers');
 
 Route::resource('/admin/users','UserController');
+
+Route::resource('/categories', 'CategoriesController');

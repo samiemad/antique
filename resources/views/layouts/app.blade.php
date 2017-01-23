@@ -26,9 +26,9 @@
         </script>
     </head>
     <body>
-        <div id="container app">
+        @include('includes.header')
 
-            @include('includes.header')
+        <div class="container app">
 
             @yield('content')
         </div>
