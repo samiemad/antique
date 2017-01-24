@@ -36,12 +36,14 @@
 					<td>{{ $category->description }}</td>
 					<td>{{ $category->advice }}</td>
 					<td>{{ $category->parent->name??'N/A' }}</td>
-					
+
 					<!-- we will also add show, edit, and delete buttons -->
 					<td>
 
 						<!-- delete the user (uses the destroy method DESTROY /categories/{id} -->
-						<!-- we will add this later since its a little more complicated than the other two buttons -->
+						{!! Form::open(['route'=>['categories.destroy', $category->id], 'method'=>'delete', 'class'=>'pull-right']) !!}
+						{!! Form::submit('Delete', ['class'=>'btn btn-danger']) !!}
+						{!! Form::close() !!}
 
 						<!-- show the user (uses the show method found at GET /categories/{id} -->
 						<a class="btn btn-small btn-success" href="{{ route('categories.show', ['id'=>$category->id]) }}">Show</a>
