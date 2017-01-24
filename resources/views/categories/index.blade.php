@@ -2,13 +2,9 @@
 
 @section('content')
 
-<div class="row">
-	<div class="col col-md-2 col-md-offset-5">
-		<a href="{{ route('categories.create') }}" class="btn btn-primary"><strong>Create a new Category</strong></a>
-	</div>
-</div>
-
-<h1> All the Categories</h1>
+<h2 class="well"> All the Categories:
+	<a href="{{ route('categories.create') }}" class="btn btn-primary pull-right">Create a new Category</a>
+</h2>
 
 <!-- will be used to show any messages -->
 @if (Session::has('message'))
@@ -17,15 +13,15 @@
 
 <div class="row">
 	<div class="col col-md-12">
-		<table class="table table-striped table-bordered">
-			<thead>
+		<table class="table table-striped table-bordered table-condenced">
+			<thead class="text-center">
 				<tr>
 					<td>ID</td>
 					<td>Name</td>
 					<td>Description</td>
 					<td>Advice</td>
 					<td>Parent Category</td>
-					<td>Actions</td>
+					<td style="min-width: 170px">Actions</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -40,17 +36,17 @@
 					<!-- we will also add show, edit, and delete buttons -->
 					<td>
 
-						<!-- delete the user (uses the destroy method DESTROY /categories/{id} -->
-						{!! Form::open(['route'=>['categories.destroy', $category->id], 'method'=>'delete', 'class'=>'pull-right']) !!}
-						{!! Form::submit('Delete', ['class'=>'btn btn-danger']) !!}
-						{!! Form::close() !!}
+							<!-- delete the user (uses the destroy method DESTROY /categories/{id} -->
+							{!! Form::open(['route'=>['categories.destroy', $category->id], 'method'=>'delete', 'class'=>'']) !!}
+							<div class="btn-group btn-group-sm">
+							<!-- show the user (uses the show method found at GET /categories/{id} -->
+							<a class="btn btn-sm btn-success" href="{{ route('categories.show', ['id'=>$category->id]) }}">Show</a>
 
-						<!-- show the user (uses the show method found at GET /categories/{id} -->
-						<a class="btn btn-small btn-success" href="{{ route('categories.show', ['id'=>$category->id]) }}">Show</a>
-
-						<!-- edit this user (uses the edit method found at GET /categories/{id}/edit -->
-						<a class="btn btn-small btn-info" href="{{ route('categories.edit', ['id'=>$category->id]) }}">Edit</a>
-
+							<!-- edit this user (uses the edit method found at GET /categories/{id}/edit -->
+							<a class="btn btn-sm btn-info" href="{{ route('categories.edit', ['id'=>$category->id]) }}">Edit</a>
+							{!! Form::submit('Delete', ['class'=>'btn btn-sm btn-danger']) !!}
+							</div>
+							{!! Form::close() !!}
 					</td>
 				</tr>
 				@endforeach
