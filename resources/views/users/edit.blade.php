@@ -69,7 +69,7 @@
 		<p>roles:</p>
  			@foreach($roles as $role)
 				{!! Form::label('roles['.$role->id.']', $role->name) !!}
- 				{!! Form::checkbox('roles['.$role->id.']', $role->id, $user->hasRole($role) , ['class' => 'form-control'] ) !!}
+ 				{!! Form::checkbox('roles['.$role->id.']', $role->id, $user->hasRole($role->name) , ['class' => 'form-control'] ) !!}
  			@endforeach
 		{!!Form::submit('Save')!!}
 		{!!Form::close()!!}

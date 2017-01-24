@@ -10,6 +10,16 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth','role:admin']);
+    }
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -46,6 +56,7 @@ class UserController extends Controller
 			'email' => 'required|email|max:255|unique:users,email',
 			'password' => 'required|min:6|confirmed',
 		]);
+		return 'not implemented yet!';
 	}
 
 	/**
@@ -81,18 +92,16 @@ class UserController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		// dd($request);
-
 		$this->validate($request,[
 			'name' => 'required|max:255',
 			'email' => ['required','email','max:255',Rule::unique('users')->ignore($id)],
-			'username' => ['max:255', Rule::unique('users','username')->ignore($id)],
-			'phone' => ['max:255', Rule::unique('users','phone')->ignore($id)],
-			'facebook' => ['max:255', Rule::unique('users','facebook')->ignore($id)],
-			'google' => ['max:255', Rule::unique('users','google')->ignore($id)],
+			'username' => ['sometimes', 'max:255', Rule::unique('users','username')->ignore($id)],
+			'phone' => ['sometimes', 'max:255', Rule::unique('users','phone')->ignore($id)],
+			'facebook' => ['sometimes', 'max:255', Rule::unique('users','facebook')->ignore($id)],
+			'google' => ['sometimes', 'max:255', Rule::unique('users','google')->ignore($id)],
 			'points' => 'required|numeric',
 			'credit' => 'required|numeric',
-			'gender' => 'required',
+			'gender' => 'required|in:male,female,unspecified',
 			'birth' => 'date',
 			'location' => 'required|exists:locations,id',
 			'referrer' => ['sometimes', Rule::exists('users','id')->whereNot('id', $id)],
@@ -103,7 +112,6 @@ class UserController extends Controller
 			return redirect()->back()->withErrors(['roles[1]'=> 'You can\'t revoke admin privilage from yourself'])->withInput();
 		}
 
-		// dd($user);
 		$user->name = $request->name;
 		$user->email = $request->email;
 		$user->username = $request->username;
@@ -124,9 +132,6 @@ class UserController extends Controller
 		$user->save();
 
 		$user->roles()->sync($request->roles);
-		// foreach($request->roles as $r){
-			// var_dump($request->roles);
-		// }
 
 		return redirect()->route('users.show',[$id]);
 	}

@@ -20,9 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
 
             $table->string('username')->unique()->nullable();
-            $table->string('phone')->nullable();
-            $table->string('facebook')->nullable();;
-            $table->string('google')->nullable();
+            $table->string('phone')->unique()->nullable();
+            $table->string('facebook')->unique()->nullable();;
+            $table->string('google')->unique()->nullable();
 
             $table->integer('points')->default(0);
             $table->integer('credit')->default(0);
