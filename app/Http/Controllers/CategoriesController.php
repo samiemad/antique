@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CategoriesController extends Controller
 {
@@ -35,7 +36,21 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        return 'Not implemented yet!';
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'description' => 'required|max:1000',
+            'advice' => 'required|max:1000',
+            'parent_id' => 'required|exists:categories,id',
+        ]);
+        $cat = new Category();
+        $cat->name = $request->name;
+        $cat->description = $request->description;
+        $cat->advice = $request->advice;
+        $cat->parent()->associate($request->parent_id);
+        $cat->save();
+        return redirect()
+                ->route('categories.index')
+                ->withMessage('Category '.$cat->name.' Added Successfully');
     }
 
     /**
@@ -69,7 +84,21 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return 'Not implemented yet!';
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'description' => 'required|max:1000',
+            'advice' => 'required|max:1000',
+            'parent_id' => ['required', Rule::exists('categories','id')->whereNot('id', $id)],
+        ]);
+        $cat = Category::findOrFail($id);
+        $cat->name = $request->name;
+        $cat->description = $request->description;
+        $cat->advice = $request->advice;
+        $cat->parent()->associate($request->parent_id);
+        $cat->save();
+        return redirect()
+                ->route('categories.index')
+                ->withMessage('Category '.$cat->name.' Edited Successfully');
     }
 
     /**

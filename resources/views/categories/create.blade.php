@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1> Create a user</h1>
+<h1> Add Category details: </h1>
 
 <!-- will be used to show any messages -->
 @if (Session::has('message'))
@@ -11,41 +11,44 @@
 
 <div class="row">
 	<div class="col col-md-10">
+		@foreach($errors->all() as $error)
+		<div class="alert alert-danger alert-dismissable fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>danger!</strong> {{$error}}.
+		</div>
+		@endforeach
+		{!!Form::open(['method'=>'POST', 'route' => 'categories.store'])!!}
+		<div class="form-group">
+			{!! Form::label('name', 'Name') !!}
+			{!! Form::text('name', Input::old('name'), ['class' => 'form-control']) !!}
+			@if ($errors->has('name'))
+			<p class="help-block">{{ $errors->first('name') }}</p>
+			@endif
+		</div>
+		<div class="form-group">
+			{!! Form::label('description', 'Description') !!}
+			{!! Form::textarea('description', Input::old('description'), ['class' => 'form-control']) !!}
+			@if ($errors->has('description'))
+			<p class="help-block">{{ $errors->first('description') }}</p>
+			@endif
+		</div>
+		<div class="form-group">
+			{!! Form::label('advice', 'Advice') !!}
+			{!! Form::textarea('advice', Input::old('advice'), ['class' => 'form-control']) !!}
+			@if ($errors->has('advice'))
+			<p class="help-block">{{ $errors->first('advice') }}</p>
+			@endif
+		</div>
+		<div class="form-group">
+			{!! Form::label('parent_id', 'Parent Category') !!}
+			{!! Form::select('parent_id', $categories->pluck('name','id'), Input::old('parent_id'), ['class' => 'form-control']) !!}
+			@if ($errors->has('parent_id'))
+			<p class="help-block">{{ $errors->first('parent_id') }}</p>
+			@endif
+		</div>
 
-		<!-- if there are creation errors, they will show here -->
-		{!! Html::ul($errors->all()) !!}
-
-		{!! Form::open(['route' => 'users.store']) !!}
-
-		 <div class="form-group">
-	        {!! Form::label('name', 'Name', ['class' => 'col-md-2']) !!}
-	        {!! Form::text('name', '', array('class' => 'form-control col-md-4')) !!}
-	    </div>
-
-		 <div class="form-group">
-	        {!! Form::label('email', 'Email') !!}
-	        {!! Form::email('email', '', array('class' => 'form-control')) !!}
-	    </div>
-
-		 <div class="form-group">
-	        {!! Form::label('password', 'Password') !!}
-	        {!! Form::password('password', '', array('class' => 'form-control')) !!}
-	    </div>
-
-		 <div class="form-group">
-	        {!! Form::label('username', 'Username') !!}
-	        {!! Form::text('username', '', array('class' => 'form-control')) !!}
-	    </div>
-
-		 <div class="form-group">
-	        {!! Form::label('phone', 'phone') !!}
-	        {!! Form::number('phone', '', array('class' => 'form-control')) !!}
-	    </div>
-
-
-
-		{!! Form::close() !!}
-
+		{!!Form::submit('Save', ['class'=>'form-controll btn btn-success'])!!}
+		{!!Form::close()!!}
 	</div>
 </div>
 @endsection

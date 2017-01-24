@@ -2,6 +2,12 @@
 
 @section('content')
 
+<div class="row">
+	<div class="col col-md-2 col-md-offset-5">
+		<a href="{{ route('categories.create') }}" class="btn btn-primary"><strong>Create a new Category</strong></a>
+	</div>
+</div>
+
 <h1> All the Categories</h1>
 
 <!-- will be used to show any messages -->
@@ -9,11 +15,6 @@
 <div class="alert alert-info">{{ Session::get('message') }}</div>
 @endif
 
-<div class="row">
-	<div class="col col-md-2 col-offset-md-5">
-		<a href="{{ route('categories.create') }}" class="btn btn-success">Create a category</a>
-	</div>
-</div>
 <div class="row">
 	<div class="col col-md-12">
 		<table class="table table-striped table-bordered">
@@ -23,6 +24,7 @@
 					<td>Name</td>
 					<td>Description</td>
 					<td>Advice</td>
+					<td>Parent Category</td>
 					<td>Actions</td>
 				</tr>
 			</thead>
@@ -33,7 +35,8 @@
 					<td>{{ $category->name }}</td>
 					<td>{{ $category->description }}</td>
 					<td>{{ $category->advice }}</td>
-
+					<td>{{ $category->parent->name??'N/A' }}</td>
+					
 					<!-- we will also add show, edit, and delete buttons -->
 					<td>
 
