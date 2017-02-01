@@ -19,9 +19,17 @@
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
+            @if(!Auth::guest())
             <ul class="nav navbar-nav">
                 <li><a href="{{ url('/home') }}">Home</a></li>
+                @if (Auth::user()->hasRole('moderator'))
+                <li><a href="{{ route('categories.browse') }}">Categories</a></li>
+                @endif
+                @if (Auth::user()->hasRole('admin'))
+                <li><a href="{{ route('users.index') }}">Users</a></li>
+                @endif
             </ul>
+            @endif
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
