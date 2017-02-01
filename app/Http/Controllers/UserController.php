@@ -87,6 +87,9 @@ class UserController extends Controller
 
 		$user->save();
 
+		if( !is_array($request->roles) )
+			$request->roles = [];
+
 		$user->roles()->sync($request->roles);
 
 		return redirect()->route('users.show',[$user->id]);
@@ -128,6 +131,7 @@ class UserController extends Controller
 		$this->validate($request,[
 			'name' => 'required|max:255',
 			'email' => ['required','email','max:255',Rule::unique('users')->ignore($id)],
+			'password' => 'sometimes|required|min:6|max:255|confirmed',
 			'username' => ['sometimes', 'max:255', Rule::unique('users','username')->ignore($id)],
 			'phone' => ['sometimes', 'max:255', Rule::unique('users','phone')->ignore($id)],
 			'facebook' => ['sometimes', 'max:255', Rule::unique('users','facebook')->ignore($id)],
@@ -150,6 +154,8 @@ class UserController extends Controller
 
 		$user->name = $request->name;
 		$user->email = $request->email;
+		if(!empty($request->password))
+			$user->password = $request->password;
 		$user->username = $request->username;
 		$user->phone = $request->phone;
 		$user->facebook = $request->facebook;

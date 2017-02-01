@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h2 class="well"> Category details: </h2>
+<h2 class="well"> User details: </h2>
 
 <!-- will be used to show any messages -->
 @if (Session::has('message'))
