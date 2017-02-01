@@ -34,4 +34,7 @@ Route::post('/item/{item_id}/comment', 'HomeController@postAddComment');
 
 Route::resource('/admin/users','UserController');
 
+Route::get('categories/browse/{category_id?}', 'CategoriesController@browse')->name('categories.browse');
 Route::resource('/categories', 'CategoriesController');
+Route::get('categories/create/{category_id?}', 'CategoriesController@create')->name('categories.create');
+

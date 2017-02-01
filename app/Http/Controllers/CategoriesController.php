@@ -29,13 +29,23 @@ class CategoriesController extends Controller
 	}
 
 	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function browse($id = 1)
+	{
+		return view('categories.browse', ['category'=>Category::findOrFail($id)]);
+	}
+
+	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create()
+	public function create($id = 1)
 	{
-		return view('categories.create');
+		return view('categories.create',['id'=>$id]);
 	}
 
 	/**

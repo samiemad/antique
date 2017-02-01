@@ -59,7 +59,7 @@
 		    {!! Form::label('parent_id', 'Parent Category', ['class'=>'control-label sr-only']) !!}
 		    <div class="input-group">
 			    <span class="input-group-addon">Parent Category</span>
-			    {!! Form::select('parent_id', $categories->pluck('name','id'), Input::old('parent_id'), 
+			    {!! Form::select('parent_id', $categories->pluck('name','id'), $id??Input::old('parent_id'), 
 			    	['class' => 'form-control', 'placeholder'=>'Parent Category']) !!}
 			</div>
 			@if ($errors->has('parent_id'))
