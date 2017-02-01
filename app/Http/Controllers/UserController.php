@@ -27,9 +27,8 @@ class UserController extends Controller
 	 */
 	public function index()
 	{
-		$users = User::all();
 		return view('users.index', [
-			'users' => $users
+			'users' => User::all()
 			]);
 	}
 
@@ -53,10 +52,44 @@ class UserController extends Controller
 	{
 		$this->validate($request,[
 			'name' => 'required|max:255',
-			'email' => 'required|email|max:255|unique:users,email',
-			'password' => 'required|min:6|confirmed',
+			'email' => ['required','email','max:255',Rule::unique('users')],
+			'password' => 'required|min:6|max:255|confirmed',
+			'username' => ['sometimes', 'max:255', Rule::unique('users','username')],
+			'phone' => ['sometimes', 'max:255', Rule::unique('users','phone')],
+			'facebook' => ['sometimes', 'max:255', Rule::unique('users','facebook')],
+			'google' => ['sometimes', 'max:255', Rule::unique('users','google')],
+			'points' => 'required|numeric',
+			'credit' => 'required|numeric',
+			'gender' => 'required|in:male,female,unspecified',
+			'birth' => 'date',
+			'location' => 'required|exists:locations,id',
+			'referrer' => ['sometimes', Rule::exists('users','id')],
 		]);
-		return 'not implemented yet!';
+		$user = new User();
+
+		$user->name = $request->name;
+		$user->email = $request->email;
+		$user->password = $request->password;
+		$user->username = $request->username;
+		$user->phone = $request->phone;
+		$user->facebook = $request->facebook;
+		$user->google = $request->google;
+		$user->points = $request->points;
+		$user->credit = $request->credit;
+		$user->gender = $request->gender;
+		$user->birth = $request->birth;
+		$user->location()->associate($request->location);
+		if ($request->referrer) {
+			$user->referrer()->associate($request->referrer);
+		}else{
+			$user->referrer()->dissociate();
+		}
+
+		$user->save();
+
+		$user->roles()->sync($request->roles);
+
+		return redirect()->route('users.show',[$user->id]);
 	}
 
 	/**
@@ -108,6 +141,9 @@ class UserController extends Controller
 		]);
 		$user = User::findOrFail($id);
 
+		if( !is_array($request->roles) )
+			$request->roles = [];
+
 		if(Auth::user() == $user && !in_array(Role::admin()->id, $request->roles)){
 			return redirect()->back()->withErrors(['roles[1]'=> 'You can\'t revoke admin privilage from yourself'])->withInput();
 		}
@@ -145,6 +181,10 @@ class UserController extends Controller
 	 */
 	public function destroy($id)
 	{
-		//
+		$user = User::findOrFail($id);
+		$user->delete();
+		return redirect()
+				->route('users.index')
+				->withMessage('User '.$user->name.' Deleted Successfully');
 	}
 }

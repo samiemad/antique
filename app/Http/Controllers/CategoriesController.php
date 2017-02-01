@@ -69,7 +69,7 @@ class CategoriesController extends Controller
 		$cat->parent()->associate($request->parent_id);
 		$cat->save();
 		return redirect()
-				->route('categories.index')
+				->route('categories.show',$cat->id)
 				->withMessage('Category '.$cat->name.' Added Successfully');
 	}
 
@@ -117,7 +117,7 @@ class CategoriesController extends Controller
 		$cat->parent()->associate($request->parent_id);
 		$cat->save();
 		return redirect()
-				->route('categories.index')
+				->route('categories.show', $cat->id)
 				->withMessage('Category '.$cat->name.' Edited Successfully');
 	}
 
@@ -132,7 +132,7 @@ class CategoriesController extends Controller
 		$cat = Category::findOrFail($id);
 		$cat->delete();
 		return redirect()
-				->route('categories.index')
+				->route('categories.browse',$cat->parent_id)
 				->withMessage('Category '.$cat->name.' Deleted Successfully');
 	}
 }

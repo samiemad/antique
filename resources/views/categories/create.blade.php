@@ -2,11 +2,14 @@
 
 @section('content')
 
-<h1> Add Category details: </h1>
+<h2 class="well"> Add Category details: </h2>
 
 <!-- will be used to show any messages -->
 @if (Session::has('message'))
-<div class="alert alert-info">{{ Session::get('message') }}</div>
+<div class="alert alert-info alert-dismissable fade in">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    {{Session::get('message')}}
+</div>
 @endif
 
 <div class="row">
@@ -17,7 +20,7 @@
 			<strong>danger!</strong> {{$error}}.
 		</div>
 		@endforeach
-		{!!Form::open(['method'=>'POST', 'route' => 'categories.store'], ['class'=>'form-horizontal'])!!}
+		{!!Form::open(['method'=>'POST', 'route' => 'categories.store'], ['class'=>''])!!}
 		<div class="form-group {{$errors->has('name') ? ' has-error has-feedback' : ''}}">
 		    {!! Form::label('name', 'Name', ['class'=>'control-label sr-only']) !!}
 		    <div class="input-group">

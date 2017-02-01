@@ -6,7 +6,10 @@
 
 <!-- will be used to show any messages -->
 @if (Session::has('message'))
-<div class="alert alert-info">{{ Session::get('message') }}</div>
+<div class="alert alert-info alert-dismissable fade in">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    {{Session::get('message')}}
+</div>
 @endif
 
 <div class="row">
