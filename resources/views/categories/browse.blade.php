@@ -4,6 +4,9 @@
 
 <h2 class="well"> Categories in {{$category->name}}:
 	<div class="btn-group pull-right">
+	@if($category->parent!=null)
+		<a href="{{ route('categories.browse',$category->parent_id) }}" class="btn btn-default">Up</a>
+	@endif
 		<a href="{{ route('categories.show',$category->id) }}" class="btn btn-success">View</a>
 		<a href="{{ route('categories.edit',$category->id) }}" class="btn btn-info">Edit</a>
 		<a href="{{ route('categories.create',$category->id) }}" class="btn btn-primary pull-right">Add sub-category</a>

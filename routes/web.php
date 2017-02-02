@@ -38,3 +38,7 @@ Route::get('categories/browse/{category_id?}', 'CategoriesController@browse')->n
 Route::resource('/categories', 'CategoriesController');
 Route::get('categories/create/{category_id?}', 'CategoriesController@create')->name('categories.create');
 
+Route::get('locations/browse/{location_id?}', 'LocationsController@browse')->name('locations.browse');
+Route::resource('/locations', 'LocationsController');
+Route::get('locations/create/{location_id?}', 'LocationsController@create')->name('locations.create');
+
