@@ -12,6 +12,8 @@
 
                 <div class="links">
                     <a href="https://samiemad.me">Sami Emad</a>
+                    <a href="mailto:aquariusbackwoods@gmail.com">Bashar Skaff</a>
+                    <a href="mailto:ali.ad.sulaiman@gmail.com">Ali Sulaiman</a>
                 </div>
             </div>
 @endsection
