@@ -30,7 +30,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $items = Item::orderBy('created_at', 'desc')->get();
+        $items = Item::orderBy('created_at', 'desc')->paginate(8);
 
         return view('home', ['items'=>$items]);
     }
