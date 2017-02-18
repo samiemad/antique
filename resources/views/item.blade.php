@@ -31,7 +31,7 @@
 			@endif
 		</div>
 		<div class="pull-right btn">
-			<div class="label label-default">posted by {{$item->user->name}} on {{$item->created_at}}</div>
+			<div class="label label-default">posted by {{$item->user->name??'Deleted User'}} on {{$item->created_at}}</div>
 		</div>
 		<hr/>
 
@@ -62,7 +62,7 @@
 			<div class="col-md-2">
 				<div class=" pull-right btn">
 					<div class="label label-default">
-						comment by {{$comment->user->name}} on {{$comment->created_at}}
+					comment by {{$comment->user->name??'Deleted User'}} on {{$comment->created_at}}
 					</div>
 				</div>
 			</div>

@@ -23,7 +23,7 @@
                 @endif
             </div>
             <div class="info pull-right btn">
-                <div class="label label-default">posted by {{$item->user->name}} on {{$item->created_at}}</div>
+                <div class="label label-default">posted by {{$item->user->name??'Deleted User'}} on {{$item->created_at}}</div>
             </div>
         </div>
     </div>
