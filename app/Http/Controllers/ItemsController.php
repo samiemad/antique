@@ -165,7 +165,7 @@ class ItemsController extends Controller
 		$image->delete();
 
 		return redirect()->back()
-						 ->withMessage('Image deleted');
+		->withMessage('Image deleted');
 	}
 
 	/**
@@ -177,6 +177,10 @@ class ItemsController extends Controller
 	public function destroy($id)
 	{
 		$item = Item::findOrFail($id);
+		foreach($item->images as $image){
+			Storage::delete($image->path);
+			$image->delete();
+		}
 		$item->delete();
 		return redirect()->route('items.index')
 		->withMessage('Item '.$item->name.' deleted successfully');
