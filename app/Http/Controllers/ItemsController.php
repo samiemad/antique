@@ -111,9 +111,9 @@ class ItemsController extends Controller
 		$this->validate($request, [
 			'name' => 'required|max:100',
 			'description' => 'required|max:1000',
-			'price' => 'required|min:100',
-			'category_id' => 'required|exists:categories',
-			'location_id' => 'required|exists:locations',
+			'price' => 'required|integer|max:1000000000',
+			'category_id' => 'required|exists:categories,id',
+			'location_id' => 'required|exists:locations,id',
 			]);
 		
 		$item = Item::findOrFail($id);
@@ -122,8 +122,8 @@ class ItemsController extends Controller
 		$item->price = $request->price;
 
 		$item->status()->associate(Status::where('name','active')->first());
-		$item->category_id = $request->category;
-		$item->location_id = $request->location;
+		$item->category_id = $request->category_id;
+		$item->location_id = $request->location_id;
 
 		$item->save();
 
@@ -142,6 +142,11 @@ class ItemsController extends Controller
 		$item->comments()->save($comment);
 
 		return redirect()->back()->withMessage('commented successfully');
+	}
+
+	public function deleteComment ($id){
+		$comment = Comment::findOrFail($id);
+		$comment->delete();
 	}
 
 	public function addImage (Request $request, $id){
@@ -182,6 +187,7 @@ class ItemsController extends Controller
 			Storage::delete($image->path);
 			$image->delete();
 		}
+		$item->comments()->delete();
 		$item->delete();
 		return redirect()->route('items.index')
 		->withMessage('Item '.$item->name.' deleted successfully');
