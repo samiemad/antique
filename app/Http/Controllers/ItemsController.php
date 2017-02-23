@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Comment;
 use App\Image;
 use App\Item;
+use App\Like;
+use App\Liketype;
 use App\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ItemsController extends Controller
 {
@@ -172,6 +175,37 @@ class ItemsController extends Controller
 
 		return redirect()->back()
 		->withMessage('Image deleted');
+	}
+
+	public function like (Request $request){
+		$item = Item::findOrFail($request->itemid);
+		$type = Liketype::where('name',$request->type)->firstOrFail();
+		$like = Like::where('item_id',$item->id)
+					->where('user_id',Auth::user()->id)
+					->first();
+		$verb = Str::lower($type->name).'d';
+		if($like == null)
+		{
+			$like = new Like();
+			$like->user_id = Auth::user()->id;
+			$like->item_id = $item->id;
+			$like->liketype_id = $type->id;
+			$like->save();
+		}else{
+			if($like->type->id == $type->id){
+				$like->delete();
+				$type->name = null;
+				$verb = 'un'.$verb;
+			}else{
+				$like->liketype_id = $type->id;
+				$like->save();
+			}
+		}
+		return json_encode([
+			'success' => true,
+			'message' => 'post '.$verb,
+			'liketype' => $type->name,
+			]);
 	}
 
 	/**

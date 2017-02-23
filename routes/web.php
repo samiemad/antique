@@ -36,6 +36,9 @@ Route::post('items/{item}/image', 'ItemsController@addImage')->name('items.addIm
 Route::delete('items/{item}/image/{image}', 'ItemsController@deleteImage')->name('items.deleteImage');
 Route::resource('items', 'ItemsController');
 
+// Like&dislike posts:
+Route::post('likeitem', 'ItemsController@like')->name('items.like');
+
 // Users Controller routes:
 Route::resource('/admin/users','UserController');
 

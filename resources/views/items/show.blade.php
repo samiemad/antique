@@ -3,7 +3,7 @@
 @section('content')
 <h2></h2>
 <div class="col-md-8 col-md-offset-2">
-	<div class="panel panel-default data-postid="{{ $item->id }}"">
+	<div class="panel panel-default"">
 		<div class="panel-heading lead text-capitalize">{{ $item->name }}
 			<div class="pull-right">
 				<div class="label label-success">{{$item->category->name??'Deleted Category'}}</div>
@@ -29,11 +29,11 @@
 				@endforeach
 			</div>
 			<hr/>
-			<div class="interaction btn-group btn-group-sm">
+			<div class="btn-group">
 				{!! Form::open(['route'=>['items.destroy',$item->id], 'method'=>'delete', 'class'=>'form-inline']) !!}
-				<div class="interaction btn-group btn-group-sm">
-					<a class="like btn btn-success {{$item->liked?'active':''}}" href="#">{{$item->liked?'Liked':'Like'}}</a>
-					<a class="like btn btn-warning {{$item->disliked?'active':''}}" href="#">{{$item->disliked?'Disliked':'Dislike'}}</a>
+				<div class="interaction btn-group btn-group-sm" data-itemid="{{ $item->id }}">
+					<a class="like btn btn-success {{$item->liked?'active':''}}" href="like">{{$item->liked?'Liked':'Like'}}</a>
+					<a class="like btn btn-warning {{$item->disliked?'active':''}}" href="dislike">{{$item->disliked?'Disliked':'Dislike'}}</a>
 					@if(Auth::user()==$item->user)
 					<a class="edit btn btn-info" href="{{ route('items.edit', $item->id) }}">Edit</a>
 					{!! Form::submit('Delete', ['class'=>'btn btn-danger']) !!}

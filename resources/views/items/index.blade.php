@@ -7,7 +7,7 @@
 </h2>
 <div class="panel-group col-md-8 col-md-offset-2">
 	@foreach($items as $item)
-	<div class="panel panel-default data-postid="{{ $item->id }}"">
+	<div class="panel panel-default"">
 		<div class="panel-heading"><strong>{{ $item->name }}</strong>
 			<div class="pull-right">
 				<div class="label label-success">{{$item->category->name??'Deleted Category'}}</div>
@@ -23,10 +23,10 @@
 		</div>
 		<div class="panel-footer">
 			{!! Form::open(['route'=>['items.destroy',$item->id], 'method'=>'delete', 'class'=>'form-inline']) !!}
-			<div class="interaction btn-group btn-group-sm">
-				<a class="like btn btn-success {{$item->liked?'active':''}}" href="#">{{$item->liked?'Liked':'Like'}}</a>
-				<a class="like btn btn-warning {{$item->disliked?'active':''}}" href="#">{{$item->disliked?'Disliked':'Dislike'}}</a>
-				<a href="{{ route('items.show',$item->id) }}" class="like btn btn-default">Read more..</a>
+			<div class="interaction btn-group btn-group-sm" data-itemid="{{ $item->id }}">
+				<a class="like btn btn-success {{$item->liked?'active':''}}" href="like">{{$item->liked?'Liked':'Like'}}</a>
+				<a class="like btn btn-warning {{$item->disliked?'active':''}}" href="dislike">{{$item->disliked?'Disliked':'Dislike'}}</a>
+				<a href="{{ route('items.show',$item->id) }}" class="btn btn-default">Read more..</a>
 				@if(Auth::user()==$item->user)
 				<a class="edit btn btn-info" href="{{ route('items.edit', $item->id) }}">Edit</a>
 				{!! Form::submit('Delete', ['class'=>'btn btn-danger']) !!}
@@ -38,4 +38,5 @@
 	@endforeach
 	{{ $items->links() }}
 </div>
+
 @endsection

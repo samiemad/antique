@@ -2,7 +2,9 @@
 
 namespace App;
 
+use App\Like;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Item extends Model
 {
@@ -37,5 +39,19 @@ class Item extends Model
 
     public function favorites(){
         return $this->hasMany('App\Favorite');
+    }
+    public function getLikedAttribute(){
+        $like = $this->likes()->where('user_id',Auth::user()->id)->first();
+        return $like!=null && $like->type->name=='Like';
+    }
+    public function getDislikedAttribute(){
+        $like = $this->likes()->where('user_id',Auth::user()->id)->first();
+        return $like!=null && $like->type->name=='Dislike';
+    }
+    public function getNumLikesAttribute(){
+        return $this->likes()->where('liketype_id',1)->count();
+    }
+    public function getNumDislikesAttribute(){
+        return $this->likes()->where('liketype_id',2)->count();
     }
 }

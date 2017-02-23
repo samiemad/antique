@@ -13,6 +13,6 @@ class Like extends Model
     	return $this->belongsTo('App\Item');
     }
     public function type(){
-    	return $this->belongsTo('App\Liketype');
+    	return $this->belongsTo('App\Liketype','liketype_id','id');
     }
 }
