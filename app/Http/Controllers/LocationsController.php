@@ -44,7 +44,7 @@ class LocationsController extends Controller
      */
     public function create($id = 1)
     {
-        return view('locations.create',['id'=>$id]);
+        return view('locations.create', ['id'=>$id]);
     }
 
     /**
@@ -65,7 +65,7 @@ class LocationsController extends Controller
         $loc->main = true;
         $loc->save();
         return redirect()
-                ->route('locations.show',$loc->id)
+                ->route('locations.show', $loc->id)
                 ->withMessage('Location '.$loc->name.' Added Successfully');
     }
 
@@ -88,7 +88,7 @@ class LocationsController extends Controller
      */
     public function edit($id)
     {
-        return view('locations.edit',['location'=> Location::findOrFail($id)]);
+        return view('locations.edit', ['location'=> Location::findOrFail($id)]);
     }
 
     /**
@@ -111,7 +111,7 @@ class LocationsController extends Controller
         $loc->main = $request->main?true:false;
         $loc->save();
         return redirect()
-                ->route('locations.show',$loc->id)
+                ->route('locations.show', $loc->id)
                 ->withMessage('Location '.$loc->name.' Edited Successfully');
     }
 
@@ -123,10 +123,10 @@ class LocationsController extends Controller
      */
     public function destroy($id)
     {
-       $loc = Location::findOrFail($id);
-       $loc->delete();
-       return redirect()
-            ->route('locations.browse',$loc->parent_id)
+        $loc = Location::findOrFail($id);
+        $loc->delete();
+        return redirect()
+            ->route('locations.browse', $loc->parent_id)
             ->withMessage('Location '.$loc->name.' Deleted Successfully');
     }
 }

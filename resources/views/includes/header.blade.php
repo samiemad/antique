@@ -26,7 +26,7 @@
                 <li><a href="{{ route('categories.browse') }}">Categories</a></li>
                 @endif
                 @if (Auth::user()->hasRole('moderator'))
-                <li><a href="{{ route('locations.browse') }}">Locations</a></li>
+                <li><a href="{{ route('locations.browse') }}">locationss</a></li>
                 @endif
                 @if (Auth::user()->hasRole('admin'))
                 <li><a href="{{ route('users.index') }}">Users</a></li>

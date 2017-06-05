@@ -49,7 +49,7 @@
 		<div class="form-group {{$errors->has('main') ? ' has-error has-feedback' : ''}}">
 		    {!! Form::label('main', 'Public place', ['class'=>'control-label sr-only']) !!}
 		    <div class="input-group">
-			    <span class="input-group-addon">Public place</span> 
+			    <span class="input-group-addon">Public place</span>
 			    <label for="main" class="checkbox-inline btn btn-default">
 			    {!! Form::checkbox('main', '1', Input::old('main'), 
 			    	['class' => 'form-control']) !!}

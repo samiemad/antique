@@ -205,6 +205,8 @@ class ItemsController extends Controller
 			'success' => true,
 			'message' => 'post '.$verb,
 			'liketype' => $type->name,
+			'numlikes' => $item->numLikes,
+			'numdislikes' => $item->numDislikes,
 			]);
 	}
 

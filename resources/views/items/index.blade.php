@@ -6,8 +6,9 @@
 	<a href="{{ route('items.create') }}" class="btn btn-primary pull-right">Publish a new item for sale</a>
 </h2>
 <div class="panel-group col-md-8 col-md-offset-2">
+<div class="row">
 	@foreach($items as $item)
-	<div class="panel panel-default"">
+	<div class="col-md-6 panel panel-default"">
 		<div class="panel-heading"><strong>{{ $item->name }}</strong>
 			<div class="pull-right">
 				<div class="label label-success">{{$item->category->name??'Deleted Category'}}</div>
@@ -35,8 +36,10 @@
 			{!! Form::close() !!}
 		</div>
 	</div>
+	</div>
 	@endforeach
 	{{ $items->links() }}
+	</div>
 </div>
 
 @endsection

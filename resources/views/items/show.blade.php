@@ -32,8 +32,17 @@
 			<div class="btn-group">
 				{!! Form::open(['route'=>['items.destroy',$item->id], 'method'=>'delete', 'class'=>'form-inline']) !!}
 				<div class="interaction btn-group btn-group-sm" data-itemid="{{ $item->id }}">
-					<a class="like btn btn-success {{$item->liked?'active':''}}" href="like">{{$item->liked?'Liked':'Like'}}</a>
-					<a class="like btn btn-warning {{$item->disliked?'active':''}}" href="dislike">{{$item->disliked?'Disliked':'Dislike'}}</a>
+					<a class="like btn btn-success {{$item->liked?'active':''}}" href="like">
+						<span>{{$item->liked?'Liked':'Like'}}</span>
+						<span class="badge"> {{$item->numLikes}} </span>
+					</a>
+					<a class="like btn btn-warning {{$item->disliked?'active':''}}" href="dislike">
+						<span class="badge"> {{$item->numDislikes}} </span>
+						<span>{{$item->disliked?'Disliked':'Dislike'}}</span>
+					</a>
+				</div>
+				{!! Form::open(['route'=>['items.destroy',$item->id], 'method'=>'delete', 'class'=>'form-inline']) !!}
+				<div class="btn-group btn-group-sm"> 
 					@if(Auth::user()==$item->user)
 					<a class="edit btn btn-info" href="{{ route('items.edit', $item->id) }}">Edit</a>
 					{!! Form::submit('Delete', ['class'=>'btn btn-danger']) !!}
